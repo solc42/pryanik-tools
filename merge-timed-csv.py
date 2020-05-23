@@ -48,7 +48,7 @@ Usage: python merge-times-csv.py first_date_file second_time_file""")
 
     dated_file = sys.argv[1]
     timed_file = sys.argv[2]
-    process_timed(timed_file, *load_dated(dated_file))
+    process_timed(timed_file, load_dated(dated_file))
 
 
 def load_dated(target_dated_path: str):
@@ -61,19 +61,18 @@ def load_dated(target_dated_path: str):
                 hdr = row
             else:
                 row_by_date[datetime.datetime.strptime(row[0], "%d.%m.%Y")] = row
-    return row_by_date, hdr
+    return row_by_date
 
 
-def process_timed(target_timed_path: str, dated_dict: dict, dated_hdr: str) -> None:
+def process_timed(target_timed_path: str, dated_dict: dict) -> None:
     with codecs.open(target_timed_path, "r", FILE_ENCODING) as r_f, \
             open(RES_FILE, "w") as out_f:
-        csv_wrtr = csv.writer(out_f, delimiter=',', quotechar='"')
+        csv_wrtr = csv.writer(out_f, delimiter=',', quotechar='"', lineterminator='\n')
         csv_rdr = csv.reader(r_f, delimiter=';', quotechar='"')
         hdr = None
         for row in csv_rdr:
             if not hdr:
                 hdr = row
-                hdr.append(dated_hdr[2])
                 csv_wrtr.writerow(hdr)
             else:
                 dt = datetime.datetime.strptime(row[2], "%Y%m%d")
@@ -85,7 +84,9 @@ def process_timed(target_timed_path: str, dated_dict: dict, dated_hdr: str) -> N
                     val = str(dated_row[2])
                     if "." not in val:
                         val = val + ".0"
-                    csv_wrtr.writerow(row + [val])
+                    # пишем в позицию для close
+                    row[7] = val
+                    csv_wrtr.writerow(row)
 
 
 if __name__ == '__main__':
