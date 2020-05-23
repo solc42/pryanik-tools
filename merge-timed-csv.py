@@ -38,7 +38,7 @@ import datetime
 
 # кодировка входящих файлов чертов win1251
 FILE_ENCODING = "cp1251"
-RES_FILE = f'{datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")}'
+RES_FILE = f'res_{datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")}.csv'
 
 
 def main() -> None:
