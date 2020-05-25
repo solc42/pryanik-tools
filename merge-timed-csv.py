@@ -1,4 +1,4 @@
-# -*- coding: <encoding name> -*-
+# -*- coding: utf-8 -*-
 # Принимает на вход два файла.
 #
 # Первый формата(в кодировке win1251):
@@ -70,7 +70,9 @@ def process_timed(target_timed_path: str, dated_dict: dict) -> None:
         csv_wrtr = csv.writer(out_f, delimiter=',', quotechar='"', lineterminator='\n')
         csv_rdr = csv.reader(r_f, delimiter=';', quotechar='"')
         hdr = None
+        line = 0
         for row in csv_rdr:
+            line += 1
             if not hdr:
                 hdr = row
                 csv_wrtr.writerow(hdr)
@@ -78,7 +80,7 @@ def process_timed(target_timed_path: str, dated_dict: dict) -> None:
                 dt = datetime.datetime.strptime(row[2], "%Y%m%d")
                 dated_row = dated_dict.get(dt)
                 if dated_row is None:
-                    raise Exception(f"ERROR: dated_file has no info for date {dated_row}")
+                    raise Exception(f"ERROR: dated_file:{line} has no info for date {dt}. Problem line:{row}")
                 else:
                     # источник кривой
                     val = str(dated_row[2])
