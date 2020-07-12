@@ -45,6 +45,7 @@ def main() -> None:
     if len(sys.argv) != 3:
         print("""Please specify exactly two arguments
 Usage: python merge-times-csv.py first_date_file second_time_file""")
+        return
 
     dated_file = sys.argv[1]
     timed_file = sys.argv[2]

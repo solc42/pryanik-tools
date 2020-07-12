@@ -1,0 +1,27 @@
+{
+  "coeffsSeparatorField": "Результат из скрипта",
+  "baseFields": [
+    "Доходность в год"
+  ],
+  "baseSortingField": "Доходность в год",
+  "topRowsToAnalyze": 10,
+  "resultRowsToShow": 2,
+  "baseConf": {
+    "Доходность в год": {
+      "lowerBoundIncl": 6,
+      "upperBoundIncl": 12.7
+    }
+  },
+  "coeffConf": {
+    "FractalValue_S_04.Left side size111": {
+      "equalityThPctIncl": 0,
+      "maxRangeValue": 123,
+      "lowerBoundIncl": 123,
+      "upperBoundIncl": 11
+    },
+    "kATRВыход_S_04.Значение11": {
+      "equalityThPctIncl": 0,
+      "maxRangeValue": 123
+    }
+  }
+}
